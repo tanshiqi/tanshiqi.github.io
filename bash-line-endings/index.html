@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>BASH下批量替换line endings | atan</title>
+  <meta name="author" content="atan">
+  
+  <meta name="description" content="从windows上拷贝过来的原文件和linux上的line endings不同，导致git提交的时候产生一推修改，其实bash下只要简单的转换一下line endings就立即让git清爽了很多首先安装dos2unix:
+sudo apt-get install dos2unix
+
+然后就可以执行：">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="BASH下批量替换line endings"/>
+  <meta property="og:site_name" content="atan"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link href="/favicon.png" rel="apple-touch-icon-precomposed">
+
+  <link rel="alternate" href="/atom.xml" title="atan" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+  
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config(
+    {
+      tex2jax: {inlineMath: [['$','$'], ['\(','\)']]},
+      TeX: {equationNumbers: {autoNumber: ["AMS"], useLabelIds: true}},
+    }
+  );
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+    <div class="container">
+      <div class="left-col">
+        <div class="intrude-less">
+          <header id="header" class="inner">
+            <div class="profilepic">
+  <script src="/js/md5.js"></script>
+  <script type="text/javascript">
+    $(function(){
+	$('.profilepic').append(
+          "<img src='http://www.gravatar.com/avatar/"
+          + MD5("tanshiqi@gmail.com")
+          + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+    });
+  </script>
+</div><!-- profilepic -->
+<h1><a href="/">atan</a></h1>
+<p class="subtitle">不务正业的设计师</p>
+<nav id="main-nav">
+  
+  </section>
+</nav><!-- main-nav -->
+<nav id="sub-nav">
+  <div class="social">
+    
+      <a class="twitter" href="http://twitter.com/atan"
+         title="Twitter">Twitter</a>
+    
+    
+      <a class="github" href="http://github.com/tanshiqi"
+         title="Github">Github</a>
+    
+    
+        <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+    
+  </div>
+</nav><!-- sub-nav -->
+
+
+          <header>
+        </div><!-- intrude-less -->
+      </div><!-- left-col -->
+      <div class="mid-col">
+        <div class="mid-col-container">
+	    <div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+	<div class="meta">
+          
+<div class="date">
+
+<time datetime="2013-05-17T14:16:00.000Z"
+      
+      data-updated="true"
+       itemprop="datePublished">
+  May 17 2013
+</time>
+
+
+
+
+
+
+<br>
+<time datetime="2013-08-18T15:10:17.000Z" class="updated" itemprop="dateModified">
+  Updated on Aug 18 2013
+</time>
+
+</div>
+
+	</div>
+        <h1 class="title" itemprop="name">BASH下批量替换line endings</h1>
+      	<div class="entry-content" itemprop="articleBody"><p>从windows上拷贝过来的原文件和linux上的line endings不同，导致git提交的时候产生一推修改，其实bash下只要简单的转换一下line endings就立即让git清爽了很多<br>首先安装dos2unix:</p>
+<pre><code><figure class="highlight"><pre>su<span class="operator"><span class="keyword">do</span> apt-<span class="keyword">get</span> install dos2unix
+</pre></figure></code></pre>
+<p>然后就可以执行：</p>
+<pre><code><figure class="highlight"><pre><span class="comment">find</span> <span class="string">.</span> <span class="literal">-</span><span class="comment">name</span> <span class="comment">"*"</span> <span class="literal">-</span><span class="comment">type</span> <span class="comment">f</span> <span class="literal">-</span><span class="comment">exec</span> <span class="comment">dos2unix</span> <span class="comment">{}</span> <span class="comment">\;
+</pre></figure></code></pre>
+</div>
+
+
+</article>
+
+  <div class="share">
+  <div class="addthis_toolbox addthis_default_style ">
+  
+  
+  <a class="addthis_button_tweet"></a>
+  
+  
+  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+  
+  
+  </div>
+  <script type="text/javascript">
+    var addthis_config = {"data_track_addressbar":false};
+  </script>
+  <script type="text/javascript"
+          src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5206464767bea141">
+  </script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</section>
+
+
+</div>
+	</div>
+        <footer id="footer" class="inner">
+          Copyright © 2013 - atan - Powered by <a href="https://github.com/tommy351/hexo">Hexo</a><br>
+- Ported theme <a href="https://github.com/nuklly/hexo-theme-greyshade">GreyShade</a> -
+        </footer>
+        
+<script src="/js/slash.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var disqus_shortname = 'atanblog';
+
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  }());
+  </script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+      </div><!-- mid-col -->
+    </div><!-- container -->
+</body>
+</html>

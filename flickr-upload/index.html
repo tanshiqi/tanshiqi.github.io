@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>flickr_upload命令行批量上传照片至Flickr | atan</title>
+  <meta name="author" content="atan">
+  
+  <meta name="description" content="自从买了 WD MyBook Live 后，宝宝的照片终于有了去处，估算了一下，按照目前照片数量的增长幅度，这个东东里的照片可以保存到宝宝40岁~
+其实照片放在本地我也是不放心的，于是乎购买了 Flickr 的 pro 帐号（无限上传，单张50M，这辈子应该够了）用来做网络备份。
+Flickr本身提供HTML5版本的在线上传界面，单次最高上传200张，如果照片不多还是很好用的，但是我基本上一个月的照片在1000张左右，每次等待上传的时间太漫长了，那么需要解决的就是能有个脚本能将我上传到 MBL 里的照片自动传到 Flickr 上，并且不限制数量。MBL的系统debian的，于是找到了这个工具：flickr_upload。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="flickr_upload命令行批量上传照片至Flickr"/>
+  <meta property="og:site_name" content="atan"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link href="/favicon.png" rel="apple-touch-icon-precomposed">
+
+  <link rel="alternate" href="/atom.xml" title="atan" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+  
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config(
+    {
+      tex2jax: {inlineMath: [['$','$'], ['\(','\)']]},
+      TeX: {equationNumbers: {autoNumber: ["AMS"], useLabelIds: true}},
+    }
+  );
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+    <div class="container">
+      <div class="left-col">
+        <div class="intrude-less">
+          <header id="header" class="inner">
+            <div class="profilepic">
+  <script src="/js/md5.js"></script>
+  <script type="text/javascript">
+    $(function(){
+	$('.profilepic').append(
+          "<img src='http://www.gravatar.com/avatar/"
+          + MD5("tanshiqi@gmail.com")
+          + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+    });
+  </script>
+</div><!-- profilepic -->
+<h1><a href="/">atan</a></h1>
+<p class="subtitle">不务正业的设计师</p>
+<nav id="main-nav">
+  
+  </section>
+</nav><!-- main-nav -->
+<nav id="sub-nav">
+  <div class="social">
+    
+      <a class="twitter" href="http://twitter.com/atan"
+         title="Twitter">Twitter</a>
+    
+    
+      <a class="github" href="http://github.com/tanshiqi"
+         title="Github">Github</a>
+    
+    
+        <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+    
+  </div>
+</nav><!-- sub-nav -->
+
+
+          <header>
+        </div><!-- intrude-less -->
+      </div><!-- left-col -->
+      <div class="mid-col">
+        <div class="mid-col-container">
+	    <div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+	<div class="meta">
+          
+<div class="date">
+
+<time datetime="2013-03-12T10:23:00.000Z"
+      
+      data-updated="true"
+       itemprop="datePublished">
+  Mar 12 2013
+</time>
+
+
+
+
+
+
+<br>
+<time datetime="2013-08-19T09:05:41.000Z" class="updated" itemprop="dateModified">
+  Updated on Aug 19 2013
+</time>
+
+</div>
+
+	</div>
+        <h1 class="title" itemprop="name">flickr_upload命令行批量上传照片至Flickr</h1>
+      	<div class="entry-content" itemprop="articleBody"><p>自从买了 <a href="http://www.wdc.com/cn/products/products.aspx?id=280" target="_blank">WD MyBook Live</a> 后，宝宝的照片终于有了去处，估算了一下，按照目前照片数量的增长幅度，这个东东里的照片可以保存到宝宝40岁~</p>
+<p>其实照片放在本地我也是不放心的，于是乎购买了 <a href="http://www.flickr.com/" target="_blank">Flickr</a> 的 pro 帐号（无限上传，单张50M，这辈子应该够了）用来做网络备份。</p>
+<p>Flickr本身提供HTML5版本的在线上传界面，单次最高上传200张，如果照片不多还是很好用的，但是我基本上一个月的照片在1000张左右，每次等待上传的时间太漫长了，那么需要解决的就是能有个脚本能将我上传到 MBL 里的照片自动传到 Flickr 上，并且不限制数量。MBL的系统debian的，于是找到了这个工具：<a href="http://search.cpan.org/~cpb/Flickr-Upload/" target="_blank">flickr_upload</a>。</p>
+<p><a name="more"></a>
+1.  安装比较简单，SSH连上MBL后直接：<code>sudo apt-get install libflickr-upload-perl</code></p>
+<ol>
+<li><p>安装好后先运行 <code>flickr_upload -auth</code></p>
+<pre><code><figure class="highlight"><pre><span class="number">1.</span> Enter <span class="keyword">the</span> following URL <span class="keyword">into</span> your browser
+
+http://www.flickr.com/services/auth/?api_sig=XXXXX ....
+
+<span class="number">2.</span> Follow <span class="keyword">the</span> instructions <span class="function_start"><span class="keyword">on</span> <span class="title">the</span></span> web page
+<span class="number">3.</span> Hit &lt;Enter&gt; when finished.
+</pre></figure></code></pre>
+</li>
+</ol>
+<ol>
+<li><p>将上面的这段网址复制到浏览器中运行，点击“接受授权”;</p>
+<p>回到命令行后按回车，会返回一串auth_token，复制此token;</p>
+</li>
+<li><p>新建一个文件：~/.flickrrc, 内容:</p>
+<pre><code><figure class="highlight"><pre><span class="setting">auth_token=<span class="value">XXXXXXXXXX //获得的auth_token</span></span>
+<span class="setting">is_public=<span class="value"><span class="number">0</span></span></span>
+<span class="setting">is_friend=<span class="value"><span class="number">0</span></span></span>
+<span class="setting">is_family=<span class="value"><span class="number">1</span></span></span>
+</pre></figure></code></pre>
+</li>
+</ol>
+<ol>
+<li><p>然后就可以使用 <code>flickr_upload abc.jpg</code> 上传图片了。 如果要上传当前目录下的全部图片，则可以这样：</p>
+<pre><code><figure class="highlight"><pre>ls -1 | tr "\\n" " " | xargs flickr_up<span class="operator"><span class="keyword">load</span>
+</pre></figure></code></pre>
+</li>
+</ol>
+</div>
+
+
+</article>
+
+  <div class="share">
+  <div class="addthis_toolbox addthis_default_style ">
+  
+  
+  <a class="addthis_button_tweet"></a>
+  
+  
+  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+  
+  
+  </div>
+  <script type="text/javascript">
+    var addthis_config = {"data_track_addressbar":false};
+  </script>
+  <script type="text/javascript"
+          src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5206464767bea141">
+  </script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</section>
+
+
+</div>
+	</div>
+        <footer id="footer" class="inner">
+          Copyright © 2013 - atan - Powered by <a href="https://github.com/tommy351/hexo">Hexo</a><br>
+- Ported theme <a href="https://github.com/nuklly/hexo-theme-greyshade">GreyShade</a> -
+        </footer>
+        
+<script src="/js/slash.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var disqus_shortname = 'atanblog';
+
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  }());
+  </script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+      </div><!-- mid-col -->
+    </div><!-- container -->
+</body>
+</html>

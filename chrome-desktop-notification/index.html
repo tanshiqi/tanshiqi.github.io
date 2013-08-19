@@ -1,0 +1,228 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Chrome desktop notification | atan</title>
+  <meta name="author" content="atan">
+  
+  <meta name="description" content="Chrome 桌面消息通知推送示例:
+&lt;script&gt;
+function notify() {
+    var havePermission = window.webkitNotifications.checkPermission();
+    if (havePermission ==">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Chrome desktop notification"/>
+  <meta property="og:site_name" content="atan"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link href="/favicon.png" rel="apple-touch-icon-precomposed">
+
+  <link rel="alternate" href="/atom.xml" title="atan" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+  
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config(
+    {
+      tex2jax: {inlineMath: [['$','$'], ['\(','\)']]},
+      TeX: {equationNumbers: {autoNumber: ["AMS"], useLabelIds: true}},
+    }
+  );
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+    <div class="container">
+      <div class="left-col">
+        <div class="intrude-less">
+          <header id="header" class="inner">
+            <div class="profilepic">
+  <script src="/js/md5.js"></script>
+  <script type="text/javascript">
+    $(function(){
+	$('.profilepic').append(
+          "<img src='http://www.gravatar.com/avatar/"
+          + MD5("tanshiqi@gmail.com")
+          + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+    });
+  </script>
+</div><!-- profilepic -->
+<h1><a href="/">atan</a></h1>
+<p class="subtitle">不务正业的设计师</p>
+<nav id="main-nav">
+  
+  </section>
+</nav><!-- main-nav -->
+<nav id="sub-nav">
+  <div class="social">
+    
+      <a class="twitter" href="http://twitter.com/atan"
+         title="Twitter">Twitter</a>
+    
+    
+      <a class="github" href="http://github.com/tanshiqi"
+         title="Github">Github</a>
+    
+    
+        <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+    
+  </div>
+</nav><!-- sub-nav -->
+
+
+          <header>
+        </div><!-- intrude-less -->
+      </div><!-- left-col -->
+      <div class="mid-col">
+        <div class="mid-col-container">
+	    <div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+	<div class="meta">
+          
+<div class="date">
+
+<time datetime="2013-03-06T22:26:00.000Z"
+      
+      data-updated="true"
+       itemprop="datePublished">
+  Mar 6 2013
+</time>
+
+
+
+
+
+
+<br>
+<time datetime="2013-08-19T04:16:38.000Z" class="updated" itemprop="dateModified">
+  Updated on Aug 19 2013
+</time>
+
+</div>
+
+	</div>
+        <h1 class="title" itemprop="name">Chrome desktop notification</h1>
+      	<div class="entry-content" itemprop="articleBody"><p>Chrome 桌面消息通知推送示例:</p>
+<pre><code><figure class="highlight"><pre><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+<span class="function"><span class="keyword">function</span> <span class="title">notify</span><span class="params">()</span> {</span>
+    <span class="keyword">var</span> havePermission = window.webkitNotifications.checkPermission();
+    <span class="keyword">if</span> (havePermission == <span class="number">0</span>) { <span class="comment">// 0 is PERMISSION_ALLOWED</span>
+        <span class="keyword">var</span> notification = window.webkitNotifications.createNotification(
+            <span class="string">'http://i.stack.imgur.com/dmHl0.png'</span>,
+            <span class="string">'Chrome notification!'</span>,
+            <span class="string">'Here is the notification text'</span>
+            );
+
+        notification.onclick = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+            window.open(<span class="string">"http://www.google.com"</span>);
+            notification.close();
+        }
+        notification.show();
+    } <span class="keyword">else</span> {
+        window.webkitNotifications.requestPermission();
+    }
+} 
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>    
+<span class="tag">&lt;<span class="title">button</span> <span class="attribute">onclick</span>=<span class="value">"notify()"</span>&gt;</span>Cick here to notify<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+</pre></figure></code></pre>
+<p>扩展阅读：<a href="http://www.html5rocks.com/en/tutorials/notifications/quick/">Using the Notifications API</a></p>
+</div>
+
+
+</article>
+
+  <div class="share">
+  <div class="addthis_toolbox addthis_default_style ">
+  
+  
+  <a class="addthis_button_tweet"></a>
+  
+  
+  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+  
+  
+  </div>
+  <script type="text/javascript">
+    var addthis_config = {"data_track_addressbar":false};
+  </script>
+  <script type="text/javascript"
+          src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5206464767bea141">
+  </script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</section>
+
+
+</div>
+	</div>
+        <footer id="footer" class="inner">
+          Copyright © 2013 - atan - Powered by <a href="https://github.com/tommy351/hexo">Hexo</a><br>
+- Ported theme <a href="https://github.com/nuklly/hexo-theme-greyshade">GreyShade</a> -
+        </footer>
+        
+<script src="/js/slash.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var disqus_shortname = 'atanblog';
+
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  }());
+  </script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+      </div><!-- mid-col -->
+    </div><!-- container -->
+</body>
+</html>

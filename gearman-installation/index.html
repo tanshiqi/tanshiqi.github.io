@@ -1,0 +1,316 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Gearman安装与简单使用 | atan</title>
+  <meta name="author" content="atan">
+  
+  <meta name="description" content="Gearman是开源、轻量级的任务分发程序框架，方便开发分布式的任务处理（计算）程序，Gearman支持多种后端数据的存储，也支持多种语言的客户端。
+编译安装gearman
+首先
+wget https://launchpad.net/gearmand/1.2/1.1.9/+download/gearmand-1.1.9.tar.gz 
+
+也可以访问https://launchpad.net/gearmand/网站,下载最新版本,这里以1.1.9版本为例(目前最新),如果安装其他版本,请根据版本号修改就行了.
+然后依次执行
+tar -xvzf  gearmand-1.1.9.tar.gz 
+cd gearmand-1.1.9 
+./configure (此步骤如果报错,可能有以下几种情况:
+            [1:configure: error: no acceptable C compiler found in $PATH
+             说明没有装gcc或g++编译环境,执行:apt-get install build-essential]
+            [2:configure: error: cannot find Boost headers version &gt;= 1.39.0
+             这是说没有安装boost包或库,执行:
+             apt-get install libboost-program-options-dev
+             apt-get install uuid-dev
+             apt-get install libevent-dev
+             apt-get install libdrizzle-dev
+             apt-get install gperf])
+make  (此步骤如果报错:sorry, unimplemented: Graphite loop optimizations can only be used if the libcloog-ppl0 package is installed
+       执行:apt-get install libcloog-ppl0)
+make install">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Gearman安装与简单使用"/>
+  <meta property="og:site_name" content="atan"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link href="/favicon.png" rel="apple-touch-icon-precomposed">
+
+  <link rel="alternate" href="/atom.xml" title="atan" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+  
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config(
+    {
+      tex2jax: {inlineMath: [['$','$'], ['\(','\)']]},
+      TeX: {equationNumbers: {autoNumber: ["AMS"], useLabelIds: true}},
+    }
+  );
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+    <div class="container">
+      <div class="left-col">
+        <div class="intrude-less">
+          <header id="header" class="inner">
+            <div class="profilepic">
+  <script src="/js/md5.js"></script>
+  <script type="text/javascript">
+    $(function(){
+	$('.profilepic').append(
+          "<img src='http://www.gravatar.com/avatar/"
+          + MD5("tanshiqi@gmail.com")
+          + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+    });
+  </script>
+</div><!-- profilepic -->
+<h1><a href="/">atan</a></h1>
+<p class="subtitle">不务正业的设计师</p>
+<nav id="main-nav">
+  
+  </section>
+</nav><!-- main-nav -->
+<nav id="sub-nav">
+  <div class="social">
+    
+      <a class="twitter" href="http://twitter.com/atan"
+         title="Twitter">Twitter</a>
+    
+    
+      <a class="github" href="http://github.com/tanshiqi"
+         title="Github">Github</a>
+    
+    
+        <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+    
+  </div>
+</nav><!-- sub-nav -->
+
+
+          <header>
+        </div><!-- intrude-less -->
+      </div><!-- left-col -->
+      <div class="mid-col">
+        <div class="mid-col-container">
+	    <div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+	<div class="meta">
+          
+<div class="date">
+
+<time datetime="2013-08-19T14:47:00.000Z"
+      
+      data-updated="true"
+       itemprop="datePublished">
+  Aug 19 2013
+</time>
+
+
+
+
+
+
+</div>
+
+	</div>
+        <h1 class="title" itemprop="name">Gearman安装与简单使用</h1>
+      	<div class="entry-content" itemprop="articleBody"><p>Gearman是开源、轻量级的任务分发程序框架，方便开发分布式的任务处理（计算）程序，Gearman支持多种后端数据的存储，也支持多种语言的客户端。</p>
+<h3>编译安装gearman</h3>
+<p>首先</p>
+<pre><code><figure class="highlight"><pre>wget https://launchpad<span class="preprocessor">.net</span>/gearmand/<span class="number">1.2</span>/<span class="number">1.1</span><span class="number">.9</span>/+download/gearmand-<span class="number">1.1</span><span class="number">.9</span><span class="preprocessor">.tar</span><span class="preprocessor">.gz</span> 
+</pre></figure></code></pre>
+<p>也可以访问<a href="https://launchpad.net/gearmand/">https://launchpad.net/gearmand/</a>网站,下载最新版本,这里以1.1.9版本为例(目前最新),如果安装其他版本,请根据版本号修改就行了.</p>
+<p>然后依次执行</p>
+<pre><code><figure class="highlight"><pre>tar -xvzf  gearmand-<span class="number">1.1</span><span class="number">.9</span>.tar.gz 
+cd gearmand-<span class="number">1.1</span><span class="number">.9</span> 
+./configure (此步骤如果报错,可能有以下几种情况:
+            [<span class="number">1</span>:configure: error: no acceptable C compiler found <span class="keyword">in</span> $PATH
+             说明没有装gcc或g++编译环境,执行:apt-<span class="keyword">get</span> install build-essential]
+            [<span class="number">2</span>:configure: error: cannot find Boost headers version &gt;= <span class="number">1.39</span><span class="number">.0</span>
+             这是说没有安装boost包或库,执行:
+             apt-<span class="keyword">get</span> install libboost-program-options-dev
+             apt-<span class="keyword">get</span> install uuid-dev
+             apt-<span class="keyword">get</span> install libevent-dev
+             apt-<span class="keyword">get</span> install libdrizzle-dev
+             apt-<span class="keyword">get</span> install gperf])
+make  (此步骤如果报错:sorry, unimplemented: Graphite loop optimizations can only be used <span class="keyword">if</span> the libcloog-ppl0 <span class="package"><span class="keyword">package</span> <span class="title">is</span> <span class="title">installed</span>
+       执行:<span class="title">apt</span>-<span class="title">get</span> <span class="title">install</span> <span class="title">libcloog</span>-<span class="title">ppl0</span>)
+<span class="title">make</span> <span class="title">install</span>  
+</pre></figure></code></pre>
+<p><a name="more"></a> </p>
+<h3>安装php的gearman扩展.</h3>
+<p>在Debian中安装扩展推荐使用dotdeb的源, 具体使用可以查看<a href="http://www.dotdeb.org/">http://www.dotdeb.org/</a>
+然后只需执行</p>
+<pre><code><figure class="highlight"><pre>apt-<span class="keyword">get</span> install php5-gearman
+</pre></figure></code></pre>
+<p>即可.
+如果是其他发行版则需要编译安装, 执行以下：</p>
+<pre><code><figure class="highlight"><pre>wget http://pecl.php.net/get/gearman-<span class="number">1.1</span>.<span class="number">1</span>.tgz
+tar zxf gearman-<span class="number">1.1</span>.<span class="number">1</span>.tgz 
+cd cd gearman-<span class="number">1.1</span>.<span class="number">1</span> 
+<span class="function"><span class="title">phpize</span>  <span class="params">(此步骤如果报错:phpize: command not found
+         执行:apt-get install php5-dev)</span>
+./<span class="title">configure</span>
+<span class="title">make</span>
+<span class="title">make</span> <span class="title">install</span>  <span class="params">(注意:如果php是默认安装的话可以省略,如果不是的话,在这步执行后会看到:
+                <span class="variable">Installing</span> shared extensions:     /usr/lib/php5/<span class="number">20090626</span>+lfs/
+                这一行文字代表是php扩展so文件存放的位置,需要自行拷贝到相应<span class="variable">PHP</span>的扩展目录里)</span>
+<span class="title">vim</span> /<span class="title">etc</span>/<span class="title">php5</span>/<span class="title">apache2</span>/<span class="title">php</span>.<span class="title">ini</span> <span class="params">(将 extension = gearman.so 放入php.ini最后一行即可)</span>
+/<span class="title">etc</span>/<span class="title">init</span>.<span class="title">d</span>/<span class="title">apache2</span> <span class="title">restart</span>
+</pre></figure></code></pre>
+<h3>测试php调用gearman</h3>
+<p>首先创建gearman日志文件</p>
+<pre><code><figure class="highlight"><pre><span class="keyword">mkdir</span> -p /usr/<span class="keyword">local</span>/var/<span class="keyword">log</span>/
+cd /usr/<span class="keyword">local</span>/var/<span class="keyword">log</span>/
+touch gearmand.<span class="keyword">log</span>
+gearmand -d (启动gearman)
+ps -ef | <span class="keyword">grep</span> gearmand  (查看gearmand是否启动)
+</pre></figure></code></pre>
+<p>创建 client.php:</p>
+<pre><code><figure class="highlight"><pre><span class="preprocessor">&lt;?php</span>
+  <span class="variable">$client</span>= <span class="keyword">new</span> GearmanClient();
+  <span class="variable">$client</span>-&gt;addServer(<span class="string">"127.0.0.1"</span>, <span class="number">4730</span>);
+  <span class="keyword">print</span> <span class="variable">$client</span>-&gt;<span class="keyword">do</span>(<span class="string">"title"</span>, <span class="string">"Linvo"</span>);
+  <span class="keyword">print</span> <span class="string">"/n"</span>;
+<span class="preprocessor">?&gt;</span> 
+</pre></figure></code></pre>
+<p>创建 worker.php:</p>
+<pre><code><figure class="highlight"><pre><span class="preprocessor">&lt;?php</span> 
+  <span class="variable">$worker</span>= <span class="keyword">new</span> GearmanWorker(); 
+  <span class="variable">$worker</span>-&gt;addServer(<span class="string">"127.0.0.1"</span>, <span class="number">4730</span>);  
+  <span class="variable">$worker</span>-&gt;addFunction(<span class="string">"title"</span>, <span class="string">"title_function"</span>); 
+  <span class="keyword">while</span> (<span class="variable">$worker</span>-&gt;work()); 
+
+  <span class="function"><span class="keyword">function</span> <span class="title">title_function</span><span class="params">(<span class="variable">$job</span>)</span> 
+  {</span> 
+    <span class="variable">$str</span> = <span class="variable">$job</span>-&gt;workload(); 
+    <span class="keyword">return</span> strlen(<span class="variable">$str</span>); 
+  } 
+<span class="preprocessor">?&gt;</span>   
+</pre></figure></code></pre>
+<p>然后分别执行</p>
+<pre><code><figure class="highlight"><pre>php -c /etc/php5/apache2/php<span class="variable">.ini</span> worker<span class="variable">.php</span>  (开启worker<span class="variable">.php</span>,另外开启一个ssh连接)
+php -c /etc/php5/apache2/php<span class="variable">.ini</span> client<span class="variable">.php</span>  (如果看到命令行有 <span class="number">5</span>/n 说明测试成功)  
+</pre></figure></code></pre>
+<h3>完成以上步骤,说明gearman已经安装成功,并且php扩展也成功了,接下来是gearman的队列持久化测试</h3>
+<p>在mysql中创建一个数据库 </p>
+<pre><code><figure class="highlight"><pre><span class="title">create</span> <span class="typedef">database gearman</span>
+</pre></figure></code></pre>
+<p>然后创建表</p>
+<pre><code><figure class="highlight"><pre><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> <span class="string">`gearman_queue`</span> (
+<span class="string">`unique_key`</span> <span class="keyword">varchar</span>(<span class="number">64</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,
+<span class="string">`function_name`</span> <span class="keyword">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,
+<span class="string">`priority`</span> <span class="keyword">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,
+<span class="string">`data`</span> LONGBLOB <span class="keyword">NOT</span> <span class="keyword">NULL</span>,
+<span class="string">`when_to_run`</span> <span class="keyword">INT</span>, <span class="keyword">PRIMARY</span> <span class="keyword">KEY</span>  (<span class="string">`unique_key`</span>)
+)  
+</pre></figure></code></pre>
+<p>然后以持久化方式启动gearman</p>
+<pre><code><figure class="highlight"><pre><span class="comment">gearmand</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">queue</span>-<span class="comment">type=MySQL</span>  <span class="literal">-</span><span class="literal">-</span><span class="comment">mysql</span>-<span class="comment">host=127</span>.<span class="comment">0</span>.<span class="comment">0</span>.<span class="comment">1</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">mysql</span>-<span class="comment">user=root</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">mysql</span>-<span class="comment">password=atanstudio</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">mysql</span>-<span class="comment">db=gearman</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">mysql</span>-<span class="comment">table=gearman_queue</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">mysql</span>-<span class="comment">port=3306</span>  <span class="comment">(如果数据库没有插入数据</span>,<span class="comment">请重启服务器</span>,<span class="comment">本人就是重启后才有反应)</span>  
+</pre></figure></code></pre>
+<p>--queue-type=连接类型  --mysql-host=服务器地址  --mysql-user=登录用户名  --mysql-password=登录密码   --mysql-db=数据库  --mysql-table=表  --mysql-port=数据库端口号</p>
+<p>启动之后再次执行worker与client</p>
+<pre><code><figure class="highlight"><pre>php -c /etc/php5/apache2/php<span class="variable">.ini</span> worker<span class="variable">.php</span>
+php -c /etc/php5/apache2/php<span class="variable">.ini</span> client<span class="variable">.php</span>  
+</pre></figure></code></pre>
+<p>然后观察数据库,应该会有对应的记录了,如果不明显可以在work.php的function里面添加 sleep(3); 表示每3秒执行一次,再观察数据库就能看到效果了</p>
+</div>
+
+
+</article>
+
+  <div class="share">
+  <div class="addthis_toolbox addthis_default_style ">
+  
+  
+  <a class="addthis_button_tweet"></a>
+  
+  
+  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+  
+  
+  </div>
+  <script type="text/javascript">
+    var addthis_config = {"data_track_addressbar":false};
+  </script>
+  <script type="text/javascript"
+          src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5206464767bea141">
+  </script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</section>
+
+
+</div>
+	</div>
+        <footer id="footer" class="inner">
+          Copyright © 2013 - atan - Powered by <a href="https://github.com/tommy351/hexo">Hexo</a><br>
+- Ported theme <a href="https://github.com/nuklly/hexo-theme-greyshade">GreyShade</a> -
+        </footer>
+        
+<script src="/js/slash.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var disqus_shortname = 'atanblog';
+
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  }());
+  </script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+      </div><!-- mid-col -->
+    </div><!-- container -->
+</body>
+</html>

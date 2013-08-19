@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>又拍云的增量同步 | atan</title>
+  <meta name="author" content="atan">
+  
+  <meta name="description" content="最近在项目中使用了又拍云作为图片存储，访问速度大大加快了，确实是值得表扬的国内云存储服务。 但是实际使用中还有有小遗憾，比如图片的同步，又拍云只提供了API和FTP两种方式，而缺少了服务器间的rsync，所以感觉总是不是很方便，但是方法还是有的，lftp就是比较简单的方式，新建一个shell，内容如">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="又拍云的增量同步"/>
+  <meta property="og:site_name" content="atan"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link href="/favicon.png" rel="apple-touch-icon-precomposed">
+
+  <link rel="alternate" href="/atom.xml" title="atan" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+  
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config(
+    {
+      tex2jax: {inlineMath: [['$','$'], ['\(','\)']]},
+      TeX: {equationNumbers: {autoNumber: ["AMS"], useLabelIds: true}},
+    }
+  );
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+    <div class="container">
+      <div class="left-col">
+        <div class="intrude-less">
+          <header id="header" class="inner">
+            <div class="profilepic">
+  <script src="/js/md5.js"></script>
+  <script type="text/javascript">
+    $(function(){
+	$('.profilepic').append(
+          "<img src='http://www.gravatar.com/avatar/"
+          + MD5("tanshiqi@gmail.com")
+          + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+    });
+  </script>
+</div><!-- profilepic -->
+<h1><a href="/">atan</a></h1>
+<p class="subtitle">不务正业的设计师</p>
+<nav id="main-nav">
+  
+  </section>
+</nav><!-- main-nav -->
+<nav id="sub-nav">
+  <div class="social">
+    
+      <a class="twitter" href="http://twitter.com/atan"
+         title="Twitter">Twitter</a>
+    
+    
+      <a class="github" href="http://github.com/tanshiqi"
+         title="Github">Github</a>
+    
+    
+        <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+    
+  </div>
+</nav><!-- sub-nav -->
+
+
+          <header>
+        </div><!-- intrude-less -->
+      </div><!-- left-col -->
+      <div class="mid-col">
+        <div class="mid-col-container">
+	    <div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+	<div class="meta">
+          
+<div class="date">
+
+<time datetime="2013-07-15T15:44:00.000Z"
+      
+      data-updated="true"
+       itemprop="datePublished">
+  Jul 15 2013
+</time>
+
+
+
+
+
+
+<br>
+<time datetime="2013-08-18T15:10:22.000Z" class="updated" itemprop="dateModified">
+  Updated on Aug 18 2013
+</time>
+
+</div>
+
+	</div>
+        <h1 class="title" itemprop="name">又拍云的增量同步</h1>
+      	<div class="entry-content" itemprop="articleBody"><p>最近在项目中使用了又拍云作为图片存储，访问速度大大加快了，确实是值得表扬的国内云存储服务。 但是实际使用中还有有小遗憾，比如图片的同步，又拍云只提供了API和FTP两种方式，而缺少了服务器间的rsync，所以感觉总是不是很方便，但是方法还是有的，lftp就是比较简单的方式，新建一个shell，内容如下：</p>
+<pre><code><figure class="highlight"><pre><span class="shebang">#!/bin/bash</span>
+HOST=<span class="string">"v0.ftp.upyun.com"</span>
+USER=<span class="string">"upyun_username"</span> <span class="comment">//FTP用户名</span>
+PASS=<span class="string">"upyun_password"</span> <span class="comment">//密码</span>
+LCD=<span class="string">"localpath"</span> <span class="comment">//远程目录</span>
+RCD=<span class="string">"remotepath"</span> <span class="comment">//本地目录</span>
+lftp -c <span class="string">"open ftp://$HOST;
+user $USER $PASS;
+lcd $LCD;
+cd $RCD;
+mirror -e -v"</span>
+</pre></figure></code></pre>
+<p>然后设置一个CRON，定时执行，就可以实现本地和远程的增量同步了，缺陷也是有的，CRON再怎么说也不能做到实时，对时效性比较高的还是不要采用此方案了。</p>
+</div>
+
+
+</article>
+
+  <div class="share">
+  <div class="addthis_toolbox addthis_default_style ">
+  
+  
+  <a class="addthis_button_tweet"></a>
+  
+  
+  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+  
+  
+  </div>
+  <script type="text/javascript">
+    var addthis_config = {"data_track_addressbar":false};
+  </script>
+  <script type="text/javascript"
+          src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5206464767bea141">
+  </script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</section>
+
+
+</div>
+	</div>
+        <footer id="footer" class="inner">
+          Copyright © 2013 - atan - Powered by <a href="https://github.com/tommy351/hexo">Hexo</a><br>
+- Ported theme <a href="https://github.com/nuklly/hexo-theme-greyshade">GreyShade</a> -
+        </footer>
+        
+<script src="/js/slash.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var disqus_shortname = 'atanblog';
+
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  }());
+  </script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+      </div><!-- mid-col -->
+    </div><!-- container -->
+</body>
+</html>

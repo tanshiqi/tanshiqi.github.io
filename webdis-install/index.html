@@ -1,0 +1,255 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Webdis 学习笔记（一）安装 | atan</title>
+  <meta name="author" content="atan">
+  
+  <meta name="description" content="webdis 是一个简单的 Web 服务器，提供了 HTTP 接口来访问 Redis 服务器。
+
+安装方法比较简单，官方网站上有写：
+git clone git://github.com/nicolasff/webdis.git
+cd webdis
+make">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Webdis 学习笔记（一）安装"/>
+  <meta property="og:site_name" content="atan"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link href="/favicon.png" rel="apple-touch-icon-precomposed">
+
+  <link rel="alternate" href="/atom.xml" title="atan" type="application/atom+xml">
+
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+  
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config(
+    {
+      tex2jax: {inlineMath: [['$','$'], ['\(','\)']]},
+      TeX: {equationNumbers: {autoNumber: ["AMS"], useLabelIds: true}},
+    }
+  );
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+</head>
+
+
+<body>
+    <div class="container">
+      <div class="left-col">
+        <div class="intrude-less">
+          <header id="header" class="inner">
+            <div class="profilepic">
+  <script src="/js/md5.js"></script>
+  <script type="text/javascript">
+    $(function(){
+	$('.profilepic').append(
+          "<img src='http://www.gravatar.com/avatar/"
+          + MD5("tanshiqi@gmail.com")
+          + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+    });
+  </script>
+</div><!-- profilepic -->
+<h1><a href="/">atan</a></h1>
+<p class="subtitle">不务正业的设计师</p>
+<nav id="main-nav">
+  
+  </section>
+</nav><!-- main-nav -->
+<nav id="sub-nav">
+  <div class="social">
+    
+      <a class="twitter" href="http://twitter.com/atan"
+         title="Twitter">Twitter</a>
+    
+    
+      <a class="github" href="http://github.com/tanshiqi"
+         title="Github">Github</a>
+    
+    
+        <a class="rss" href="/atom.xml" title="RSS">RSS</a>
+    
+  </div>
+</nav><!-- sub-nav -->
+
+
+          <header>
+        </div><!-- intrude-less -->
+      </div><!-- left-col -->
+      <div class="mid-col">
+        <div class="mid-col-container">
+	    <div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+	<div class="meta">
+          
+<div class="date">
+
+<time datetime="2013-01-22T00:10:00.000Z"
+      
+      data-updated="true"
+       itemprop="datePublished">
+  Jan 22 2013
+</time>
+
+
+
+
+
+
+<br>
+<time datetime="2013-08-19T09:07:53.000Z" class="updated" itemprop="dateModified">
+  Updated on Aug 19 2013
+</time>
+
+</div>
+
+	</div>
+        <h1 class="title" itemprop="name">Webdis 学习笔记（一）安装</h1>
+      	<div class="entry-content" itemprop="articleBody"><p><a href="http://webd.is/">webdis</a> 是一个简单的 Web 服务器，提供了 HTTP 接口来访问 Redis 服务器。</p>
+<ol>
+<li><p>安装方法比较简单，官方网站上有写：</p>
+<pre><code><figure class="highlight"><pre><span class="title">git</span> clone git://github.com/nicolasff/webdis.git
+<span class="title">cd</span> webdis
+<span class="title">make</span>
+</pre></figure></code></pre>
+</li>
+</ol>
+<p><a name="more"></a>
+2.  编译好后先不急着执行，修改编译目录下的 webdis.json，修改</p>
+<pre><code><figure class="highlight"><pre>    <span class="string">"daemonize"</span>:    <span class="keyword">true</span>,
+    <span class="string">"websockets"</span>:   <span class="keyword">true</span>,
+
+
+第一行是将webdis以守护进程方式运行，第二行是开启websockets支持。 运行：./webdis 之后就可以用HTTP接口操作redis，默认端口<span class="number">7379</span>，测试：
+
+浏览器直接访问 http:<span class="comment">//127.0.0.1:7379/SET/key/value</span>
+
+或者shell： `$ curl <span class="string">"http://127.0.0.1:7379/SET/key/value"</span>`
+
+再或者PHP:
+
+    <span class="preprocessor">&lt;?php</span>
+    <span class="variable">$url</span> = <span class="string">"http://127.0.0.1:7379/SET/key/value"</span>;
+    <span class="keyword">echo</span> file_get_contents(<span class="variable">$url</span>);
+
+
+返回结果： `{<span class="string">"SET"</span>:[<span class="keyword">true</span>,<span class="string">"OK"</span>]}`
+</pre></figure></code></pre>
+<ol>
+<li><p>顺便说一下，当前官方版本的websockets接口有个bug，<a href="https://github.com/nicolasff/webdis/issues/58">当开启成功后就马上关闭了</a>，导致无法接收之后的请求，幸好已经有人<a href="https://github.com/dcosta72/webdis/commit/884cba24e02ae905404321fad50a9d6898383f94">修复了这个问题</a>，但还未合并至官方master。 如果想正常使用websockets，暂时可以使用这个git：<a href="https://github.com/dcosta72/webdis">https://github.com/dcosta72/webdis</a> 或者手工修改websocket.c后再编译：<br>修改:</p>
+<pre><code><figure class="highlight"><pre>/* <span class="keyword">send</span> WS frame <span class="variable">*/</span>
+r = http_response_init(cmd-&gt;w, <span class="number">0</span>, NULL);
+<span class="keyword">if</span> (r == NULL)
+    <span class="keyword">return</span> -<span class="number">1</span>;
+</pre></figure></code></pre>
+</li>
+</ol>
+<pre><code><figure class="highlight"><pre>为：
+
+    /* <span class="keyword">send</span> WS frame <span class="variable">*/</span>
+    r = http_response_init(cmd-&gt;w, <span class="number">0</span>, NULL);
+    <span class="keyword">if</span> (cmd_is_subscribe(cmd)) {
+        r-&gt;keep_alive = <span class="number">1</span>;
+    }
+
+    <span class="keyword">if</span> (r == NULL)
+        <span class="keyword">return</span> -<span class="number">1</span>;
+</pre></figure></code></pre>
+</div>
+
+
+</article>
+
+  <div class="share">
+  <div class="addthis_toolbox addthis_default_style ">
+  
+  
+  <a class="addthis_button_tweet"></a>
+  
+  
+  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+  
+  
+  </div>
+  <script type="text/javascript">
+    var addthis_config = {"data_track_addressbar":false};
+  </script>
+  <script type="text/javascript"
+          src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5206464767bea141">
+  </script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</section>
+
+
+</div>
+	</div>
+        <footer id="footer" class="inner">
+          Copyright © 2013 - atan - Powered by <a href="https://github.com/tommy351/hexo">Hexo</a><br>
+- Ported theme <a href="https://github.com/nuklly/hexo-theme-greyshade">GreyShade</a> -
+        </footer>
+        
+<script src="/js/slash.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var disqus_shortname = 'atanblog';
+
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  }());
+  </script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+
+      </div><!-- mid-col -->
+    </div><!-- container -->
+</body>
+</html>
